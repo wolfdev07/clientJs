@@ -19,9 +19,14 @@ npm install
 ```
 
 ## Usage
-To run the integration tests, use the following command:
+To run server local, use the following command:
 ```bash
 npm run serve
+```
+
+To asign a HOST or PORT environ, use
+```bash
+HOST=127.0.0.1 PORT=4200 npm run serve
 ```
 
 ## Contributing
@@ -29,3 +34,6 @@ We welcome contributions! Please read our [contributing guidelines](CONTRIBUTING
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## AUTHOR
+Arturo Pulido
