@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client</title>
+</head>
+<body>
+  <h1>Client</h1>
+  <select name="method" id="method">
+    <option value="GET">GET</option>
+    <option value="POST">POST</option>
+    <option value="PUT">PUT</option>
+    <option value="DELETE">DELETE</option>
+  </select>
+  <input type="text" id="urlValue" placeholder="Enter url">
+  <textarea name="requestBody" id="requestBody" placeholder="Enter body"></textarea>
+  <button id="requestBtn">Consultar</button>
+  <section>
+    <h2>Response</h2>
+    <div id="output"></div>
+  </section>
+  <script src="./main.js"></script>
+</body>
+</html>
