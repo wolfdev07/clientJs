@@ -3,23 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <title>Client</title>
 </head>
 <body>
-  <h1>Client</h1>
-  <select name="method" id="method">
-    <option value="GET">GET</option>
-    <option value="POST">POST</option>
-    <option value="PUT">PUT</option>
-    <option value="DELETE">DELETE</option>
-  </select>
-  <input type="text" id="urlValue" placeholder="Enter url">
-  <textarea name="requestBody" id="requestBody" placeholder="Enter body"></textarea>
-  <button id="requestBtn">Consultar</button>
-  <section>
-    <h2>Response</h2>
-    <div id="output"></div>
-  </section>
-  <script src="./main.js"></script>
+  <!-- Modal -->
+  <div class="modal fade" id="decoderModal" tabindex="-1" aria-labelledby="decoderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="decoderModalLabel">Decoder Functions</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 mb-2">
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Base 64
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" id="decodeB64">Decode</a></li>
+                  <li><a class="dropdown-item" id="encodeB64">Encode</a></li>
+                </ul>
+              </div>
+  
+              <div class="btn-group btn-group-success btn-group-sm" role="group">
+                <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Ulr parse
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" id="decodeUri">Decode</a></li>
+                  <li><a class="dropdown-item" id="encodeUri">Encode</a></li>
+                </ul>
+              </div>
+
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Copy to
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" id="copyToReq">to request</a></li>
+                  <li><a class="dropdown-item" id="copyToRes">to response</a></li>
+                  <li><a class="dropdown-item" id="copyToCb">to clip board</a></li>
+                </ul>
+              </div>
+
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Copy from
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" id="copyFromReq">from request</a></li>
+                  <li><a class="dropdown-item" id="copyFromRes">from response</a></li>
+                  <li><a class="dropdown-item" id="copyFromCb">from clip board</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-12">
+              <textarea class="form-control" name="decoderTextArea" id="decoderTextArea" placeholder="Enter text..." rows="10"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save text</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="mt-4">Client <strong>JS</strong></h1>
+
+    <div class="row mb-4">
+      <div class="col-12">
+        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#decoderModal">
+          Decoder
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3 mb-3">
+        <label for="method" class="form-label">Method</label>
+        <select name="method" id="method"class="form-select">
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+      </div>
+
+      <div class="col-9 mb-3">
+        <label for="urlValue" class="form-label">URL Api</label>
+        <input type="text" id="urlValue" class="form-control" placeholder="Enter url">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-3">
+        <label for="requestBody" class="form-label">Request Body</label>
+        <textarea class="form-control" name="requestBody" id="requestBody" placeholder="Enter body" rows="3"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 text-end mb-3">
+        <button id="requestBtn" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+    
+    <section>
+      <h2>Response</h2>
+      <div id="output"></div>
+      <textarea class="form-control" name="responseTextArea" id="responseTextArea" placeholder="Await response" rows="3"></textarea>
+    </section>
+  </div>
+
 </body>
+  <script src="./main.js" defer></script>
+  <script src="./decoder.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </html>
