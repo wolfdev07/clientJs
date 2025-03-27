@@ -51,27 +51,36 @@ async function postRequest(urlApi, bodyRequest) {
 
         const data = await response.json();
         console.log(data);
-        document.getElementById('output').innerHTML = JSON.stringify(data, null, 2);
+        try {
+            document.getElementById('responseTextArea').value = JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById('output').innerHTML = JSON.stringify(data, null, 2);
+        }
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-async function getRequest(urlApi) {
+async function getRequest(urlApi, bodyRequest) {
     try {
         const response = await fetch(urlApi, {
             method: 'GET',
             headers: { 
                 'Content-Type': 'application/json',
                 'Origin': 'http://localhost:8080'
-            }
+            },
+            body: JSON.stringify(bodyRequest)? JSON.stringify(bodyRequest) : null
         });
 
         if (!response.ok) throw new Error('Error en la llamada a la API');
 
         const data = await response.json();
         console.log(data);
-        document.getElementById('output').innerHTML = JSON.stringify(data, null, 2);
+        try {
+            document.getElementById('responseTextArea').value = JSON.stringify(data, null, 2);
+        } catch (error) {
+            document.getElementById('output').innerHTML = JSON.stringify(data, null, 2);
+        }
     } catch (error) {
         console.error('Error:', error);
     }
